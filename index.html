@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OFICIA — El oficio que necesitás, cuando lo necesitás</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#F5B400;
+    --gold-deep:#c98f00;
+    --ink:#111111;
+    --white:#FFFFFF;
+    --gray-100:#F5F5F5;
+    --gray-200:#EAEAEA;
+    --gray-500:#707070;
+    --green:#34C759;
+    --red:#FF3B30;
+    --blue:#0A84FF;
+    --radius-lg:28px;
+    --radius-md:18px;
+    --radius-sm:10px;
+    --shadow-soft:0 20px 50px rgba(0,0,0,0.10);
+    --shadow-deep:0 30px 80px rgba(0,0,0,0.45);
+    --font-display:'Poppins',-apple-system,'SF Pro Display',sans-serif;
+    --font-body:'Inter',-apple-system,'SF Pro Text',sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img,svg{display:block;}
+  a{text-decoration:none; color:inherit;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  section{position:relative;}
+  h1,h2,h3,h4{font-family:var(--font-display); font-weight:700; letter-spacing:-0.02em;}
+  .eyebrow{
+    font-family:var(--font-body); font-weight:700; font-size:12px; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--gold-deep);
+  }
+  .eyebrow.on-dark{color:var(--gold);}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; justify-content:center;
+    padding:15px 28px; border-radius:999px; font-family:var(--font-body); font-weight:600;
+    font-size:15px; cursor:pointer; border:none; transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--gold); color:var(--ink); box-shadow:0 12px 28px rgba(245,180,0,0.35);}
+  .btn-ghost{background:transparent; color:var(--white); border:1.5px solid rgba(255,255,255,0.35);}
+  .btn-ghost:hover{border-color:var(--white);}
+  .btn-dark{background:var(--ink); color:var(--white);}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(17,17,17,0.72); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .nav-inner{
+    max-width:1180px; margin:0 auto; padding:16px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand span{font-family:var(--font-display); font-weight:700; font-size:19px; color:var(--white); letter-spacing:-0.01em;}
+  .nav-links{display:flex; gap:30px; align-items:center;}
+  .nav-links a{color:rgba(255,255,255,0.75); font-size:14px; font-weight:500;}
+  .nav-links a:hover{color:var(--white);}
+  .nav-cta{display:flex; gap:12px;}
+  @media (max-width:860px){ .nav-links{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:
+      radial-gradient(circle at 18% 12%, rgba(245,180,0,0.16), transparent 45%),
+      radial-gradient(circle at 85% 75%, rgba(245,180,0,0.10), transparent 50%),
+      linear-gradient(180deg,#0c0c0c 0%, #141414 60%, #191919 100%);
+    color:var(--white); padding:170px 0 120px; overflow:hidden;
+  }
+  .hero-grid{display:grid; grid-template-columns:1.05fr 0.95fr; gap:60px; align-items:center;}
+  @media (max-width:960px){ .hero-grid{grid-template-columns:1fr;} }
+  .hero h1{font-size:56px; line-height:1.04; margin:18px 0 22px; letter-spacing:-0.03em;}
+  .hero h1 em{color:var(--gold); font-style:normal;}
+  .hero p.lead{font-size:18px; color:rgba(255,255,255,0.68); max-width:480px; margin-bottom:34px;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .hero-stats{display:flex; gap:34px; margin-top:56px; flex-wrap:wrap;}
+  .hero-stats div b{display:block; font-family:var(--font-display); font-size:26px; color:var(--gold);}
+  .hero-stats div span{font-size:12.5px; color:rgba(255,255,255,0.55);}
+
+  /* phone mockup base */
+  .phone{
+    width:270px; height:548px; border-radius:44px; background:#000;
+    padding:12px; box-shadow:var(--shadow-deep); position:relative; flex-shrink:0;
+  }
+  .phone .screen{
+    width:100%; height:100%; border-radius:34px; background:var(--white); overflow:hidden; position:relative;
+    display:flex; flex-direction:column;
+  }
+  .phone .notch{
+    position:absolute; top:0; left:50%; transform:translateX(-50%); width:120px; height:22px;
+    background:#000; border-radius:0 0 16px 16px; z-index:5;
+  }
+  .hero-phone-wrap{display:flex; justify-content:center; position:relative;}
+  .hero-phone-wrap::after{
+    content:''; position:absolute; width:340px; height:340px; background:radial-gradient(circle, rgba(245,180,0,0.25), transparent 70%);
+    filter:blur(10px); z-index:0;
+  }
+  .hero-phone-wrap .phone{position:relative; z-index:1; transform:rotate(-3deg);}
+
+  /* app UI bits reused inside phone screens */
+  .app-topbar{padding:34px 18px 10px; background:var(--white);}
+  .app-topbar .greet{font-size:12px; color:var(--gray-500); font-weight:500;}
+  .app-topbar .greet-name{font-family:var(--font-display); font-size:20px; font-weight:600; margin-top:2px;}
+  .search-pill{
+    margin:14px 18px 10px; background:var(--gray-100); border-radius:16px; padding:13px 16px;
+    font-size:13px; color:var(--gray-500); display:flex; align-items:center; gap:8px;
+  }
+  .cat-row{display:flex; gap:10px; padding:6px 18px; overflow:hidden;}
+  .cat-chip{
+    flex-shrink:0; width:64px; text-align:center; font-size:10px; color:var(--ink); font-weight:600;
+  }
+  .cat-chip .ic{
+    width:52px; height:52px; border-radius:16px; background:var(--gray-100); display:flex; align-items:center;
+    justify-content:center; margin-bottom:6px;
+  }
+  .promo-card{
+    margin:12px 18px; background:linear-gradient(120deg,var(--ink),#2b2b2b); border-radius:18px; padding:16px;
+    color:var(--white);
+  }
+  .promo-card b{font-family:var(--font-display); font-size:14px; color:var(--gold);}
+  .promo-card p{font-size:11px; color:rgba(255,255,255,0.7); margin-top:4px;}
+  .list-card{
+    margin:0 18px 10px; background:var(--white); border:1px solid var(--gray-200); border-radius:16px; padding:12px;
+    display:flex; gap:10px; align-items:center; box-shadow:0 6px 16px rgba(0,0,0,0.04);
+  }
+  .avatar{width:44px; height:44px; border-radius:50%; background:var(--gray-200); flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; font-size:16px;}
+  .list-card .meta{flex:1;}
+  .list-card .meta b{font-size:12.5px; display:block;}
+  .list-card .meta span{font-size:10.5px; color:var(--gray-500);}
+  .pill-tag{font-size:9px; font-weight:700; padding:3px 8px; border-radius:999px;}
+  .pill-green{background:rgba(52,199,89,0.12); color:var(--green);}
+  .pill-blue{background:rgba(10,132,255,0.12); color:var(--blue);}
+  .pill-gold{background:rgba(245,180,0,0.16); color:var(--gold-deep);}
+  .bottom-tab{
+    margin-top:auto; display:flex; justify-content:space-around; padding:12px 10px 16px; border-top:1px solid var(--gray-200);
+    background:var(--white);
+  }
+  .bottom-tab .tab{width:20px; height:20px; border-radius:6px; background:var(--gray-200);}
+  .bottom-tab .tab.active{background:var(--gold);}
+  .fab{
+    position:absolute; bottom:78px; right:16px; width:52px; height:52px; border-radius:50%;
+    background:var(--gold); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 24px rgba(245,180,0,0.5);
+  }
+
+  /* ---------- generic sections ---------- */
+  .section{padding:110px 0;}
+  .section-head{max-width:640px; margin-bottom:56px;}
+  .section-head h2{font-size:38px; margin:14px 0 16px; letter-spacing:-0.02em;}
+  .section-head p{color:var(--gray-500); font-size:16.5px;}
+  .section.on-dark{background:var(--ink); color:var(--white);}
+  .section.on-dark .section-head p{color:rgba(255,255,255,0.6);}
+  .section.on-gray{background:var(--gray-100);}
+
+  /* objetivos */
+  .obj-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+  @media (max-width:900px){.obj-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.obj-grid{grid-template-columns:1fr;}}
+  .obj-card{
+    background:var(--white); border-radius:var(--radius-md); padding:28px 24px; box-shadow:var(--shadow-soft);
+    border:1px solid var(--gray-200);
+  }
+  .obj-card .num{font-family:var(--font-display); font-size:13px; font-weight:700; color:var(--gold-deep); margin-bottom:14px;}
+  .obj-card h3{font-size:18px; margin-bottom:8px;}
+  .obj-card p{font-size:13.5px; color:var(--gray-500);}
+  .obj-icon{width:44px; height:44px; border-radius:12px; background:var(--gray-100); display:flex; align-items:center; justify-content:center; margin-bottom:16px;}
+
+  /* identidad */
+  .identity-grid{display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:start;}
+  @media (max-width:900px){.identity-grid{grid-template-columns:1fr; gap:50px;}}
+  .logo-showcase{
+    background:var(--ink); border-radius:var(--radius-lg); padding:60px 40px; display:flex; flex-direction:column;
+    align-items:center; gap:26px; box-shadow:var(--shadow-deep);
+  }
+  .logo-showcase p{color:rgba(255,255,255,0.55); font-size:13px; text-align:center; max-width:280px;}
+  .swatches{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:8px;}
+  .swatch{border-radius:14px; padding:16px; height:88px; display:flex; flex-direction:column; justify-content:flex-end; box-shadow:var(--shadow-soft);}
+  .swatch b{font-size:12px; font-family:var(--font-body); font-weight:700;}
+  .swatch span{font-size:10.5px; opacity:0.7;}
+  .type-specimen{margin-top:34px;}
+  .type-specimen .d1{font-family:var(--font-display); font-weight:700; font-size:40px; letter-spacing:-0.02em;}
+  .type-specimen .d2{font-family:var(--font-display); font-weight:500; font-size:16px; color:var(--gray-500); margin:6px 0 18px;}
+  .type-specimen .d3{font-family:var(--font-body); font-size:14.5px; color:var(--gray-500); max-width:420px;}
+
+  /* tabs ecosystem */
+  .tabs{display:flex; gap:8px; margin-bottom:44px; background:var(--gray-100); padding:6px; border-radius:999px; width:fit-content;}
+  .tab-btn{
+    padding:11px 22px; border-radius:999px; font-size:13.5px; font-weight:600; cursor:pointer; border:none; background:transparent; color:var(--gray-500);
+    font-family:var(--font-body); transition:.2s;
+  }
+  .tab-btn.active{background:var(--ink); color:var(--white);}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+
+  /* phone carousel (signature) */
+  .flow-strip{
+    display:flex; gap:34px; overflow-x:auto; padding:60px 6vw 30px; scroll-snap-type:x mandatory;
+  }
+  .flow-strip::-webkit-scrollbar{height:6px;}
+  .flow-strip::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.2); border-radius:10px;}
+  .flow-item{flex-shrink:0; scroll-snap-align:center; text-align:center; position:relative;}
+  .flow-item .phone{width:230px; height:468px; transform:perspective(1200px) rotateY(var(--ry,0deg)) rotateX(2deg);}
+  .flow-item:nth-child(1) .phone{--ry:10deg;}
+  .flow-item:nth-child(2) .phone{--ry:5deg;}
+  .flow-item:nth-child(3) .phone{--ry:0deg;}
+  .flow-item:nth-child(4) .phone{--ry:-5deg;}
+  .flow-item:nth-child(5) .phone{--ry:-8deg;}
+  .flow-item:nth-child(6) .phone{--ry:-10deg;}
+  .flow-item .flow-label{margin-top:22px; font-size:12px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.12em; font-weight:700;}
+  .flow-item .flow-title{font-family:var(--font-display); font-weight:600; font-size:15px; color:var(--white); margin-top:4px;}
+
+  /* screen contents helper */
+  .screen-badge{position:absolute; top:16px; right:14px; z-index:6; background:rgba(17,17,17,0.85); color:var(--gold); font-size:9px; font-weight:700; padding:4px 9px; border-radius:8px;}
+  .status-track{padding:16px 18px;}
+  .status-step{display:flex; align-items:center; gap:10px; margin-bottom:14px;}
+  .status-dot{width:10px; height:10px; border-radius:50%; background:var(--gray-200);}
+  .status-step.done .status-dot{background:var(--green);}
+  .status-step.now .status-dot{background:var(--gold);}
+  .status-step span{font-size:11.5px; color:var(--gray-500);}
+  .status-step.done span, .status-step.now span{color:var(--ink); font-weight:600;}
+  .map-block{margin:0 16px; height:150px; border-radius:16px; background:
+    linear-gradient(135deg,#eef3e8,#e6efe0);
+    position:relative; overflow:hidden;}
+  .map-block .pin{position:absolute; width:14px; height:14px; background:var(--gold); border-radius:50% 50% 50% 0; transform:rotate(-45deg); box-shadow:0 4px 10px rgba(0,0,0,0.2);}
+
+  /* funciones inteligentes */
+  .feat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  @media (max-width:900px){.feat-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:600px){.feat-grid{grid-template-columns:1fr;}}
+  .feat-card{padding:26px; border-radius:var(--radius-md); background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);}
+  .feat-card .obj-icon{background:rgba(245,180,0,0.12);}
+  .feat-card h3{font-size:15.5px; color:var(--white); margin-bottom:6px;}
+  .feat-card p{font-size:13px; color:rgba(255,255,255,0.55);}
+
+  /* seguridad */
+  .trust-row{display:flex; flex-wrap:wrap; gap:16px;}
+  .trust-chip{
+    display:flex; align-items:center; gap:10px; padding:14px 20px; border-radius:16px; background:var(--white);
+    border:1px solid var(--gray-200); box-shadow:var(--shadow-soft); font-size:13.5px; font-weight:600;
+  }
+  .trust-chip .dot{width:8px; height:8px; border-radius:50%; background:var(--green);}
+
+  /* modelo negocio */
+  .rev-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  @media (max-width:900px){.rev-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.rev-grid{grid-template-columns:1fr;}}
+  .rev-card{background:var(--white); border-radius:var(--radius-md); padding:26px 22px; border:1px solid var(--gray-200);}
+  .rev-card .pct{font-family:var(--font-display); font-size:30px; font-weight:700; color:var(--gold-deep);}
+  .rev-card h4{font-size:14.5px; margin:10px 0 6px;}
+  .rev-card p{font-size:12.5px; color:var(--gray-500);}
+
+  /* categorias */
+  .chip-cloud{display:flex; flex-wrap:wrap; gap:10px;}
+  .chip{
+    padding:10px 18px; border-radius:999px; background:var(--white); border:1px solid var(--gray-200);
+    font-size:13px; font-weight:600; color:var(--ink); box-shadow:0 4px 12px rgba(0,0,0,0.03);
+  }
+
+  /* roadmap */
+  .roadmap{display:flex; flex-direction:column; gap:0;}
+  .rm-item{display:grid; grid-template-columns:120px 1fr; gap:24px; padding:26px 0; border-top:1px solid var(--gray-200);}
+  .rm-item:last-child{border-bottom:1px solid var(--gray-200);}
+  .rm-item .rm-phase{font-family:var(--font-display); font-weight:700; font-size:14px; color:var(--gold-deep);}
+  .rm-item h4{font-size:16.5px; margin-bottom:6px;}
+  .rm-item p{font-size:13.5px; color:var(--gray-500);}
+  @media (max-width:600px){.rm-item{grid-template-columns:1fr; gap:6px;}}
+
+  /* pantallas checklist */
+  .screens-list{columns:3; column-gap:30px;}
+  @media (max-width:900px){.screens-list{columns:2;}}
+  @media (max-width:560px){.screens-list{columns:1;}}
+  .screens-list li{font-size:13.5px; color:rgba(255,255,255,0.7); padding:7px 0; break-inside:avoid; list-style:none; display:flex; align-items:center; gap:9px;}
+  .screens-list li::before{content:''; width:6px; height:6px; border-radius:50%; background:var(--gold); flex-shrink:0;}
+
+  /* CTA final */
+  .cta-final{
+    background:linear-gradient(135deg,#161616,#0c0c0c); border-radius:var(--radius-lg); padding:70px 50px;
+    text-align:center; color:var(--white); position:relative; overflow:hidden;
+  }
+  .cta-final::before{content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 0%, rgba(245,180,0,0.18), transparent 60%);}
+  .cta-final h2{font-size:34px; position:relative; z-index:1;}
+  .cta-final p{color:rgba(255,255,255,0.6); margin:14px 0 30px; position:relative; z-index:1;}
+  .cta-final .hero-actions{justify-content:center; position:relative; z-index:1;}
+
+  footer{background:var(--ink); color:rgba(255,255,255,0.4); padding:40px 0; font-size:13px; text-align:center;}
+  footer b{color:rgba(255,255,255,0.7);}
+
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+
+  @media (max-width:600px){
+    .hero h1{font-size:38px;}
+    .section-head h2{font-size:28px;}
+    .section{padding:74px 0;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">
+      <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
+        <path d="M24 4L44 20V42C44 43.1 43.1 44 42 44H30V30H18V44H6C4.9 44 4 43.1 4 42V20L24 4Z" fill="#F5B400"/>
+        <path d="M31 15.5C31 12.5 28.5 10 25.5 10C24.6 10 23.7 10.2 23 10.6L26 13.6L24.5 16.1L21.5 15.1L20.5 18.1L23.5 19.6C23.2 20.3 23 21.1 23 21.9C23 24.9 25.5 27.4 28.5 27.4C31.5 27.4 34 24.9 34 21.9L31 15.5Z" fill="#111111"/>
+      </svg>
+      <span>OFICIA</span>
+    </div>
+    <div class="nav-links">
+      <a href="#objetivos">Objetivos</a>
+      <a href="#identidad">Marca</a>
+      <a href="#flujo">Experiencia</a>
+      <a href="#inteligencia">IA</a>
+      <a href="#negocio">Negocio</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#final" class="btn btn-primary" style="padding:11px 22px; font-size:13.5px;">Ver demo completa</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow on-dark">Ecosistema digital de oficios · Presentación de producto</div>
+      <h1>El oficio que <em>necesitás</em>, cuando lo necesitás.</h1>
+      <p class="lead">OFICIA conecta clientes con profesionales verificados —electricistas, plomeros, gasistas, cerrajeros y más de 20 oficios— en minutos, con seguimiento en vivo, pagos protegidos y calidad garantizada.</p>
+      <div class="hero-actions">
+        <a href="#objetivos" class="btn btn-primary">Explorar la propuesta</a>
+        <a href="#flujo" class="btn btn-ghost">Ver el recorrido del cliente</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>+25</b><span>oficios cubiertos</span></div>
+        <div><b>3</b><span>apps: cliente, profesional y admin</span></div>
+        <div><b>100%</b><span>profesionales verificados</span></div>
+      </div>
+    </div>
+    <div class="hero-phone-wrap">
+      <div class="phone">
+        <div class="screen">
+          <div class="notch"></div>
+          <div class="app-topbar">
+            <div class="greet">Hola 👋</div>
+            <div class="greet-name">Juan Pérez</div>
+          </div>
+          <div class="search-pill">🔍 ¿Qué servicio necesitás?</div>
+          <div class="cat-row">
+            <div class="cat-chip"><div class="ic">⚡</div>Electricista</div>
+            <div class="cat-chip"><div class="ic">🔧</div>Plomero</div>
+            <div class="cat-chip"><div class="ic">🔥</div>Gasista</div>
+            <div class="cat-chip"><div class="ic">🔑</div>Cerrajero</div>
+          </div>
+          <div class="promo-card">
+            <b>20% OFF</b>
+            <p>En tu primer servicio de limpieza del hogar</p>
+          </div>
+          <div class="list-card">
+            <div class="avatar">👷</div>
+            <div class="meta"><b>Marcos R. · Electricista</b><span>⭐ 4.9 · a 8 min</span></div>
+            <span class="pill-tag pill-green">Verificado</span>
+          </div>
+          <div class="list-card">
+            <div class="avatar">🧑‍🔧</div>
+            <div class="meta"><b>Lucía G. · Plomera</b><span>⭐ 4.8 · a 12 min</span></div>
+            <span class="pill-tag pill-gold">Top del mes</span>
+          </div>
+          <div class="fab">＋</div>
+          <div class="bottom-tab">
+            <div class="tab active"></div><div class="tab"></div><div class="tab"></div><div class="tab"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJETIVOS -->
+<section class="section" id="objetivos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Objetivos del proyecto</div>
+      <h2>Por qué existe OFICIA</h2>
+      <p>Hoy conseguir un profesional confiable para el hogar, el comercio o la empresa depende del boca en boca, grupos de WhatsApp o avisos sin garantía. OFICIA resuelve ese problema con una plataforma tecnológica, segura y medible, pensada para escalar a nivel regional.</p>
+    </div>
+    <div class="obj-grid">
+      <div class="obj-card reveal">
+        <div class="obj-icon">🤝</div>
+        <div class="num">01</div>
+        <h3>Confianza real</h3>
+        <p>Profesionales con antecedentes, matrícula y seguro verificados antes de ingresar a la plataforma.</p>
+      </div>
+      <div class="obj-card reveal">
+        <div class="obj-icon">⚡</div>
+        <div class="num">02</div>
+        <h3>Rapidez</h3>
+        <p>Matching automático por cercanía y disponibilidad: de la solicitud a la confirmación en minutos.</p>
+      </div>
+      <div class="obj-card reveal">
+        <div class="obj-icon">🛡️</div>
+        <div class="num">03</div>
+        <h3>Seguridad</h3>
+        <p>Pagos protegidos, chat cifrado, botón SOS y garantía sobre cada trabajo realizado.</p>
+      </div>
+      <div class="obj-card reveal">
+        <div class="obj-icon">📈</div>
+        <div class="num">04</div>
+        <h3>Tecnología escalable</h3>
+        <p>Una base de producto (apps + panel admin) lista para crecer ciudad por ciudad sin rediseñar de cero.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IDENTIDAD -->
+<section class="section on-gray" id="identidad">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Identidad de marca</div>
+      <h2>Una marca premium, cálida y tecnológica</h2>
+      <p>El logo fusiona una casa —el hogar— con una llave inglesa —el oficio—, representando confianza, servicio y tecnología en un solo símbolo minimalista.</p>
+    </div>
+    <div class="identity-grid">
+      <div class="logo-showcase reveal">
+        <svg width="120" height="120" viewBox="0 0 48 48" fill="none">
+          <path d="M24 4L44 20V42C44 43.1 43.1 44 42 44H30V30H18V44H6C4.9 44 4 43.1 4 42V20L24 4Z" fill="#F5B400"/>
+          <path d="M31 15.5C31 12.5 28.5 10 25.5 10C24.6 10 23.7 10.2 23 10.6L26 13.6L24.5 16.1L21.5 15.1L20.5 18.1L23.5 19.6C23.2 20.3 23 21.1 23 21.9C23 24.9 25.5 27.4 28.5 27.4C31.5 27.4 34 24.9 34 21.9L31 15.5Z" fill="#FFFFFF"/>
+        </svg>
+        <p>Casa + llave inglesa: hogar, oficio, confianza y servicio en una sola marca. Trazo simple, ángulos rectos, sin degradés — legible en cualquier tamaño, desde un ícono de app hasta un cartel de vía pública.</p>
+      </div>
+      <div class="reveal">
+        <div class="eyebrow">Paleta</div>
+        <div class="swatches">
+          <div class="swatch" style="background:#F5B400; color:#111;"><b>Amarillo dorado</b><span>#F5B400 · principal</span></div>
+          <div class="swatch" style="background:#111111; color:#fff;"><b>Negro</b><span>#111111 · secundario</span></div>
+          <div class="swatch" style="background:#FFFFFF; color:#111; border:1px solid #EAEAEA;"><b>Blanco</b><span>#FFFFFF · base</span></div>
+          <div class="swatch" style="background:#34C759; color:#fff;"><b>Verde</b><span>#34C759 · éxito</span></div>
+          <div class="swatch" style="background:#0A84FF; color:#fff;"><b>Azul</b><span>#0A84FF · información</span></div>
+          <div class="swatch" style="background:#FF3B30; color:#fff;"><b>Rojo</b><span>#FF3B30 · emergencia</span></div>
+        </div>
+        <div class="type-specimen">
+          <div class="eyebrow">Tipografía</div>
+          <div class="d1">Poppins / SF Pro</div>
+          <div class="d2">Inter — texto de interfaz y contenido</div>
+          <div class="d3">Poppins y SF Pro Display para títulos con carácter; Inter para textos de app, listas y datos, priorizando legibilidad en pantallas chicas. Montserrat queda disponible como alternativa editorial para marketing.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSISTEMA / TABS -->
+<section class="section" id="ecosistema">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">El ecosistema</div>
+      <h2>Tres experiencias, una misma plataforma</h2>
+      <p>OFICIA no es solo una app: es un ecosistema con tres frentes que trabajan sincronizados en tiempo real.</p>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="cliente">App Cliente</button>
+      <button class="tab-btn" data-tab="profesional">App Profesional</button>
+      <button class="tab-btn" data-tab="admin">Panel Admin</button>
+    </div>
+
+    <div class="tab-panel active" id="panel-cliente">
+      <div class="obj-grid">
+        <div class="obj-card"><div class="obj-icon">🏠</div><h3>Home inteligente</h3><p>Buscador, categorías, servicios recientes, promociones y profesionales destacados en una sola pantalla.</p></div>
+        <div class="obj-card"><div class="obj-icon">📝</div><h3>Solicitud guiada</h3><p>Categoría, descripción, fotos, video, ubicación, fecha, horario y urgencia en un flujo de pocos pasos.</p></div>
+        <div class="obj-card"><div class="obj-icon">📍</div><h3>Seguimiento en vivo</h3><p>Mapa con GPS en tiempo real, estado del trabajo, chat, llamada y botón de ayuda.</p></div>
+        <div class="obj-card"><div class="obj-icon">💳</div><h3>Pago y calificación</h3><p>Tarjetas, Mercado Pago, transferencia, cupones y factura, con calificación final de 1 a 5 estrellas.</p></div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="panel-profesional">
+      <div class="obj-grid">
+        <div class="obj-card"><div class="obj-icon">📋</div><h3>Trabajos nuevos</h3><p>Aceptar o rechazar solicitudes entrantes con toda la información del cliente y la urgencia.</p></div>
+        <div class="obj-card"><div class="obj-icon">📅</div><h3>Agenda e ingresos</h3><p>Calendario, historial de trabajos y estadísticas de ingresos en un solo lugar.</p></div>
+        <div class="obj-card"><div class="obj-icon">🏅</div><h3>Reputación y nivel</h3><p>Ranking, insignias como "Profesional Oro" o "Top del mes" y recompensas por desempeño.</p></div>
+        <div class="obj-card"><div class="obj-icon">🗺️</div><h3>Navegación y chat</h3><p>Mapa de navegación al domicilio del cliente y chat integrado durante todo el trabajo.</p></div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="panel-admin">
+      <div class="obj-grid">
+        <div class="obj-card"><div class="obj-icon">📊</div><h3>Dashboard y KPIs</h3><p>Usuarios, profesionales, solicitudes, pagos y comisiones en tiempo real.</p></div>
+        <div class="obj-card"><div class="obj-icon">🚨</div><h3>Incidentes y soporte</h3><p>Gestión de reclamos, chat de soporte y resolución de incidentes reportados.</p></div>
+        <div class="obj-card"><div class="obj-icon">🧾</div><h3>Facturación</h3><p>Control de comisiones por trabajo, planes premium y facturación consolidada.</p></div>
+        <div class="obj-card"><div class="obj-icon">🌎</div><h3>Expansión y marketing</h3><p>Analytics para decidir qué ciudad, oficio o campaña priorizar en la próxima etapa.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLUJO SIGNATURE -->
+<section class="section on-dark" id="flujo" style="padding-left:0; padding-right:0;">
+  <div class="wrap" style="margin-bottom:0;">
+    <div class="section-head reveal">
+      <div class="eyebrow on-dark">Experiencia del cliente</div>
+      <h2>De la solicitud al trabajo terminado</h2>
+      <p>Un recorrido diseñado como el de Uber o Airbnb: simple, guiado y siempre visible para el cliente.</p>
+    </div>
+  </div>
+  <div class="flow-strip">
+    <div class="flow-item">
+      <div class="phone"><div class="screen">
+        <div class="notch"></div>
+        <div class="app-topbar"><div class="greet">Paso 1</div><div class="greet-name" style="font-size:16px;">Elegí la categoría</div></div>
+        <div class="cat-row" style="flex-wrap:wrap; padding-top:14px;">
+          <div class="cat-chip"><div class="ic">⚡</div>Electricidad</div>
+          <div class="cat-chip"><div class="ic">🔧</div>Plomería</div>
+          <div class="cat-chip"><div class="ic">🎨</div>Pintura</div>
+          <div class="cat-chip"><div class="ic">🧹</div>Limpieza</div>
+        </div>
+        <div class="list-card"><div class="avatar">🔌</div><div class="meta"><b>Corte de luz en cocina</b><span>Problema frecuente</span></div></div>
+        <div class="list-card"><div class="avatar">💡</div><div class="meta"><b>Instalar tomacorriente</b><span>Problema frecuente</span></div></div>
+        <div class="bottom-tab"><div class="tab active"></div><div class="tab"></div><div class="tab"></div><div class="tab"></div></div>
+      </div></div>
+      <div class="flow-label">Solicitud</div><div class="flow-title">Categoría y problema</div>
+    </div>
+
+    <div class="flow-item">
+      <div class="phone"><div class="screen">
+        <div class="notch"></div>
+        <div class="app-topbar"><div class="greet">Paso 2</div><div class="greet-name" style="font-size:16px;">Contanos más</div></div>
+        <div style="margin:10px 18px; background:var(--gray-100); border-radius:14px; padding:14px; font-size:11.5px; color:var(--gray-500);">"El tomacorriente de la cocina no da corriente desde ayer."</div>
+        <div style="display:flex; gap:8px; margin:0 18px 10px;">
+          <div style="flex:1; height:60px; background:var(--gray-200); border-radius:12px;"></div>
+          <div style="flex:1; height:60px; background:var(--gray-200); border-radius:12px;"></div>
+          <div style="flex:1; height:60px; background:var(--gray-100); border:1px dashed var(--gray-500); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:18px; color:var(--gray-500);">+</div>
+        </div>
+        <div class="map-block"><div class="pin" style="top:60px; left:100px;"></div></div>
+        <div style="display:flex; gap:8px; margin:12px 18px;">
+          <span class="pill-tag pill-gold">Urgente</span><span class="pill-tag pill-blue">Programado</span>
+        </div>
+        <div class="bottom-tab"><div class="tab"></div><div class="tab active"></div><div class="tab"></div><div class="tab"></div></div>
+      </div></div>
+      <div class="flow-label">Detalle</div><div class="flow-title">Fotos y ubicación</div>
+    </div>
+
+    <div class="flow-item">
+      <div class="phone"><div class="screen">
+        <div class="notch"></div>
+        <div class="screen-badge">Buscando</div>
+        <div class="app-topbar"><div class="greet">Paso 3</div><div class="greet-name" style="font-size:16px;">Matching en curso</div></div>
+        <div class="list-card"><div class="avatar">👷</div><div class="meta"><b>Marcos R.</b><span>⭐4.9 · 8 min · $ est. 12.000</span></div><span class="pill-tag pill-green">Verificado</span></div>
+        <div class="list-card"><div class="avatar">🧑‍🔧</div><div class="meta"><b>Elena F.</b><span>⭐4.8 · 11 min · $ est. 11.500</span></div><span class="pill-tag pill-gold">Top mes</span></div>
+        <div class="list-card"><div class="avatar">👨‍🔧</div><div class="meta"><b>Diego M.</b><span>⭐4.7 · 14 min · $ est. 10.800</span></div><span class="pill-tag pill-blue">Nuevo</span></div>
+        <div class="bottom-tab"><div class="tab"></div><div class="tab"></div><div class="tab active"></div><div class="tab"></div></div>
+      </div></div>
+      <div class="flow-label">Matching</div><div class="flow-title">Profesionales cercanos</div>
+    </div>
+
+    <div class="flow-item">
+      <div class="phone"><div class="screen">
+        <div class="notch"></div>
+        <div class="screen-badge" style="background:rgba(52,199,89,0.9); color:#fff;">En camino</div>
+        <div class="map-block" style="margin:34px 16px 10px; height:180px;"><div class="pin" style="top:70px; left:130px;"></div><div class="pin" style="top:110px; left:60px; background:#111;"></div></div>
+        <div class="status-track">
+          <div class="status-step done"><div class="status-dot"></div><span>Solicitado</span></div>
+          <div class="status-step done"><div class="status-dot"></div><span>Aceptado</span></div>
+          <div class="status-step now"><div class="status-dot"></div><span>En camino · 6 min</span></div>
+          <div class="status-step"><div class="status-dot"></div><span>Trabajando</span></div>
+        </div>
+        <div class="bottom-tab"><div class="tab"></div><div class="tab"></div><div class="tab"></div><div class="tab active"></div></div>
+      </div></div>
+      <div class="flow-label">Seguimiento</div><div class="flow-title">Mapa en tiempo real</div>
+    </div>
+
+    <div class="flow-item">
+      <div class="phone"><div class="screen">
+        <div class="notch"></div>
+        <div class="app-topbar"><div class="greet">Paso 5</div><div class="greet-name" style="font-size:16px;">Elegí cómo pagar</div></div>
+        <div class="list-card"><div class="avatar">💳</div><div class="meta"><b>Tarjeta terminada en 4521</b><span>Débito</span></div></div>
+        <div class="list-card"><div class="avatar">🅿️</div><div class="meta"><b>Mercado Pago</b><span>Saldo disponible</span></div></div>
+        <div class="list-card"><div class="avatar">💵</div><div class="meta"><b>Efectivo</b><span>Al finalizar el trabajo</span></div></div>
+        <div style="margin:16px 18px; padding:14px; background:var(--ink); border-radius:14px; color:#fff; display:flex; justify-content:space-between; font-size:12.5px;"><span>Total estimado</span><b style="color:var(--gold);">$ 12.000</b></div>
+        <div class="bottom-tab"><div class="tab"></div><div class="tab"></div><div class="tab"></div><div class="tab active"></div></div>
+      </div></div>
+      <div class="flow-label">Pago</div><div class="flow-title">Método y resumen</div>
+    </div>
+
+    <div class="flow-item">
+      <div class="phone"><div class="screen">
+        <div class="notch"></div>
+        <div class="app-topbar" style="text-align:center; padding-top:50px;">
+          <div class="greet-name" style="font-size:16px;">¡Trabajo finalizado!</div>
+        </div>
+        <div style="text-align:center; font-size:26px; letter-spacing:6px; margin:10px 0; color:var(--gold);">★★★★★</div>
+        <div style="margin:0 18px; background:var(--gray-100); border-radius:14px; padding:14px; font-size:11.5px; color:var(--gray-500);">"Excelente atención, muy prolijo y puntual."</div>
+        <div style="display:flex; gap:10px; margin:16px 18px;">
+          <div class="btn btn-dark" style="flex:1; padding:11px; font-size:12px;">Volver a contratar</div>
+        </div>
+        <div class="bottom-tab"><div class="tab"></div><div class="tab"></div><div class="tab"></div><div class="tab active"></div></div>
+      </div></div>
+      <div class="flow-label">Finalización</div><div class="flow-title">Calificación y garantía</div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNCIONES INTELIGENTES -->
+<section class="section on-dark" id="inteligencia">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow on-dark">Funciones inteligentes</div>
+      <h2>Tecnología que trabaja en segundo plano</h2>
+      <p>Inteligencia artificial y automatización aplicadas a cada paso del servicio, sin que el usuario tenga que pensar en ellas.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card"><div class="obj-icon">🧠</div><h3>Detección del oficio correcto</h3><p>La IA interpreta la descripción del problema y sugiere la categoría más precisa.</p></div>
+      <div class="feat-card"><div class="obj-icon">💰</div><h3>Estimación automática de costo</h3><p>Precio de referencia calculado según el tipo de trabajo, la urgencia y la zona.</p></div>
+      <div class="feat-card"><div class="obj-icon">🚨</div><h3>Detección de urgencias</h3><p>Prioriza automáticamente los pedidos que requieren atención inmediata.</p></div>
+      <div class="feat-card"><div class="obj-icon">🖼️</div><h3>Reconocimiento de imágenes</h3><p>Analiza las fotos subidas por el cliente para anticipar herramientas y repuestos.</p></div>
+      <div class="feat-card"><div class="obj-icon">🔒</div><h3>Sistema antifraude</h3><p>Verificación biométrica y validación de identidad para clientes y profesionales.</p></div>
+      <div class="feat-card"><div class="obj-icon">📍</div><h3>GPS y geocercas</h3><p>Ubicación en tiempo real con zonas de cobertura definidas por ciudad.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SEGURIDAD -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Seguridad y confianza</div>
+      <h2>Cada trabajo, protegido de punta a punta</h2>
+      <p>La confianza no es una promesa: son controles concretos en cada etapa del servicio.</p>
+    </div>
+    <div class="trust-row">
+      <div class="trust-chip"><span class="dot"></span>Profesionales verificados</div>
+      <div class="trust-chip"><span class="dot"></span>Antecedentes y matrícula</div>
+      <div class="trust-chip"><span class="dot"></span>Seguro incluido</div>
+      <div class="trust-chip"><span class="dot"></span>Pagos protegidos</div>
+      <div class="trust-chip"><span class="dot"></span>Chat cifrado</div>
+      <div class="trust-chip"><span class="dot"></span>Botón SOS</div>
+      <div class="trust-chip"><span class="dot"></span>Soporte 24/7</div>
+      <div class="trust-chip"><span class="dot"></span>Garantía del trabajo</div>
+    </div>
+  </div>
+</section>
+
+<!-- MODELO DE NEGOCIO -->
+<section class="section on-gray" id="negocio">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Modelo de negocio</div>
+      <h2>Cómo genera ingresos la plataforma</h2>
+      <p>Un modelo con múltiples fuentes de ingreso, pensado para crecer de forma sostenible junto con la red de profesionales.</p>
+    </div>
+    <div class="rev-grid">
+      <div class="rev-card"><div class="pct">①</div><h4>Comisión por trabajo</h4><p>Un porcentaje sobre cada servicio completado en la plataforma.</p></div>
+      <div class="rev-card"><div class="pct">②</div><h4>Planes Premium</h4><p>Suscripción para profesionales con mayor visibilidad y beneficios.</p></div>
+      <div class="rev-card"><div class="pct">③</div><h4>Publicidad y marketplace</h4><p>Espacios destacados y venta de materiales o herramientas dentro de la app.</p></div>
+      <div class="rev-card"><div class="pct">④</div><h4>Seguros y financiación</h4><p>Productos adicionales para clientes y profesionales dentro del ecosistema.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIAS -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Cobertura</div>
+      <h2>Oficios que resuelve OFICIA</h2>
+      <p>La misma plataforma escala a cualquier oficio, sin cambiar la experiencia base.</p>
+    </div>
+    <div class="chip-cloud">
+      <span class="chip">Electricistas</span><span class="chip">Plomeros</span><span class="chip">Gasistas</span>
+      <span class="chip">Cerrajeros</span><span class="chip">Albañiles</span><span class="chip">Pintores</span>
+      <span class="chip">Durlock</span><span class="chip">Techistas</span><span class="chip">Aires acondicionados</span>
+      <span class="chip">Técnicos de celulares</span><span class="chip">Electrodomésticos</span><span class="chip">Limpieza</span>
+      <span class="chip">Mudanzas</span><span class="chip">Cámaras</span><span class="chip">Alarmas</span>
+      <span class="chip">Jardinería</span><span class="chip">Pileteros</span><span class="chip">Vidrieros</span>
+      <span class="chip">Carpinteros</span><span class="chip">Herreros</span><span class="chip">Fumigación</span>
+      <span class="chip">Internet</span><span class="chip">PC</span><span class="chip">Impresoras</span>
+      <span class="chip">Y más...</span>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="section on-gray">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Próximos pasos</div>
+      <h2>De esta demo al producto real</h2>
+      <p>Este demo es la base visual y funcional para avanzar hacia el desarrollo en Flutter, React Native o Swift.</p>
+    </div>
+    <div class="roadmap">
+      <div class="rm-item"><div class="rm-phase">Fase 1</div><div><h4>Validación de marca y flujo</h4><p>Cerrar identidad visual, pantallas clave y feedback de clientes piloto (este entregable).</p></div></div>
+      <div class="rm-item"><div class="rm-phase">Fase 2</div><div><h4>Prototipo navegable</h4><p>Diseño UI completo de las 25+ pantallas listadas, con componentes reutilizables.</p></div></div>
+      <div class="rm-item"><div class="rm-phase">Fase 3</div><div><h4>Desarrollo MVP</h4><p>App cliente + app profesional, matching básico, pagos y seguimiento en vivo.</p></div></div>
+      <div class="rm-item"><div class="rm-phase">Fase 4</div><div><h4>Panel admin y lanzamiento</h4><p>Dashboard, analytics, primeras ciudades piloto y campaña de marketing.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PANTALLAS A DISEÑAR -->
+<section class="section on-dark">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow on-dark">Alcance del entregable</div>
+      <h2>Pantallas contempladas en el diseño completo</h2>
+      <p>El sistema de diseño cubre las tres apps de punta a punta.</p>
+    </div>
+    <ul class="screens-list">
+      <li>Splash</li><li>Onboarding</li><li>Login</li><li>Registro cliente</li><li>Registro profesional</li>
+      <li>Recuperar contraseña</li><li>Home cliente</li><li>Home profesional</li><li>Buscar servicio</li>
+      <li>Categorías</li><li>Detalle del servicio</li><li>Perfil profesional</li><li>Lista de profesionales</li>
+      <li>Chat</li><li>Llamada</li><li>Seguimiento en vivo</li><li>Pago</li><li>Historial</li>
+      <li>Favoritos</li><li>Notificaciones</li><li>Configuración</li><li>Perfil</li><li>Soporte</li>
+      <li>Ayuda</li><li>Reportes</li><li>Dashboard administrador</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="section" id="final">
+  <div class="wrap">
+    <div class="cta-final reveal">
+      <div class="eyebrow on-dark">Siguiente paso</div>
+      <h2>Llevemos OFICIA del concepto al producto</h2>
+      <p>Este demo reúne identidad de marca, flujo de cliente, app de profesionales y panel administrador en una sola narrativa lista para presentar a inversores o socios.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-primary">Agendar reunión de producto</a>
+        <a href="#" class="btn btn-ghost">Descargar propuesta en PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><b>OFICIA</b> — El oficio que necesitás, cuando lo necesitás. Demo de producto para presentación a clientes.</div>
+</footer>
+
+<script>
+  // tabs
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-'+btn.dataset.tab).classList.add('active');
+    });
+  });
+  // reveal on scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); } });
+  },{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
